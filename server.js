@@ -97,7 +97,7 @@ app.delete(`${backendPath}/tasks/:id`, async (req, res) => {
     if (!task) {
       return res.status(404).json({ message: "Завдання не знайдено" });
     }
-    return res.status(204).send();
+    return res.status(200).json(task);
   } catch (error) {
     console.error("Task creation error" + error);
     return res.status(500).json({ error: error.message });
@@ -176,7 +176,7 @@ app.delete(`${backendPath}/models/:id`, async (req, res) => {
     if (!model) {
       return res.status(404).json({ message: "Модель не знайдено" });
     }
-    return res.status(204).send();
+    return res.status(200).json(model);
   } catch (error) {
     console.error("Model creation error" + error);
     return res.status(500).json({ error: error.message });
@@ -235,7 +235,7 @@ app.delete(`${backendPath}/contactUs/:id`, async (req, res) => {
     if (!contactUs) {
       return res.status(404).json({ message: "Повідомлення не знайдено" });
     }
-    return res.status(204).send();
+    return res.status(200).json(contactUs);
   } catch (error) {
     console.error("Message creation error" + error);
     return res.status(500).json({ error: error.message });
@@ -318,7 +318,7 @@ app.delete(`${backendPath}/components/:id`, async (req, res) => {
     if (!component) {
       return res.status(404).json({ message: "Компонент не знайдено" });
     }
-    return res.status(204).send();
+    return res.status(200).json(component);
   } catch (error) {
     console.error("Component creation error" + error);
     return res.status(500).json({ error: error.message });
