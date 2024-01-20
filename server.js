@@ -8,6 +8,7 @@ const Task = require("./models/taskModel");
 const Model = require("./models/modelModel");
 const ContactUs = require("./models/contactUsModel");
 const Component = require("./models/componentModel");
+const Service = require("./models/serviceModel");
 
 const backendPath = "/backend";
 // const backendPath = "";
@@ -321,6 +322,85 @@ app.delete(`${backendPath}/components/:id`, async (req, res) => {
     return res.status(200).json(component);
   } catch (error) {
     console.error("Component creation error" + error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+// Service endpoint
+app.get(`${backendPath}/services`, async (req, res) => {
+  try {
+    const services = await Service.find();
+
+    return res.status(200).json(services);
+  } catch (error) {
+    console.error("Service creation error" + error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+app.get(`${backendPath}/services/:id`, async (req, res) => {
+  try {
+    const serviceId = req.params.id;
+
+    const service = await Service.findById(serviceId);
+
+    if (!service) {
+      return res.status(404).json({ message: "Послугу не знайдено" });
+    }
+
+    return res.status(200).json(service);
+  } catch (error) {
+    console.error("Service creation error" + error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+app.post(`${backendPath}/services`, async (req, res) => {
+  try {
+    const newService = req.body;
+    const service = await Service.create(newService);
+
+    if (!service) {
+      return res.status(404).json({ message: "Послугу не створено" });
+    }
+
+    return res.status(201).json(service);
+  } catch (error) {
+    console.error("Service creation error" + error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+app.put(`${backendPath}/services/:id`, async (req, res) => {
+  try {
+    const updatedService = req.body;
+    const serviceId = req.params.id;
+
+    const service = await Service.findByIdAndUpdate(serviceId, updatedService, {
+      new: true,
+    });
+
+    if (!service) {
+      return res.status(404).json({ message: "Послугу не знайдено" });
+    }
+
+    return res.status(200).json(service);
+  } catch (error) {
+    console.error("Service creation error" + error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+app.delete(`${backendPath}/services/:id`, async (req, res) => {
+  try {
+    const serviceId = req.params.id;
+    const service = await Service.findByIdAndDelete(serviceId);
+    if (!service) {
+      return res.status(404).json({ message: "Послугу не знайдено" });
+    }
+    return res.status(200).json(service);
+  } catch (error) {
+    console.error("Service creation error" + error);
     return res.status(500).json({ error: error.message });
   }
 });
