@@ -11,14 +11,6 @@ const serviceSchema = new mongoose.Schema({
     require: [true, "Page is required"],
     unique: true,
   },
-  isPage: {
-    type: "boolean",
-    default: false,
-  },
-  isOnSite: {
-    type: "boolean",
-    default: false,
-  },
 });
 
 const Service = mongoose.model("Service", serviceSchema);

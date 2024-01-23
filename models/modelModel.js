@@ -11,15 +11,6 @@ const modelSchema = new mongoose.Schema({
     unique: true,
   },
   image: String,
-  services: [
-    {
-      label: String,
-      value: String,
-      page: String,
-      id: String,
-      isPage: Boolean,
-    },
-  ],
   details: {
     typeOfSim: String,
     size: String,
@@ -30,7 +21,14 @@ const modelSchema = new mongoose.Schema({
     mobileNetwork: String,
     type: { type: String },
   },
-
+  services: [
+    {
+      name: String,
+      page: String,
+      isPage: Boolean,
+      isOnSite: Boolean,
+    },
+  ],
   components: [],
 });
 
