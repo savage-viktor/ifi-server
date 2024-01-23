@@ -9,6 +9,7 @@ const Model = require("./models/modelModel");
 const ContactUs = require("./models/contactUsModel");
 const Component = require("./models/componentModel");
 const Service = require("./models/serviceModel");
+const Client = require("./models/clientModel");
 
 const backendPath = "/backend";
 // const backendPath = "";
@@ -401,6 +402,85 @@ app.delete(`${backendPath}/services/:id`, async (req, res) => {
     return res.status(200).json(service);
   } catch (error) {
     console.error("Service creation error" + error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+// Client endpoint
+app.get(`${backendPath}/clients`, async (req, res) => {
+  try {
+    const clients = await Client.find();
+
+    return res.status(200).json(clients);
+  } catch (error) {
+    console.error("Client creation error" + error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+app.get(`${backendPath}/clients/:id`, async (req, res) => {
+  try {
+    const clientId = req.params.id;
+
+    const client = await Client.findById(clientId);
+
+    if (!client) {
+      return res.status(404).json({ message: "Клієнта не знайдено" });
+    }
+
+    return res.status(200).json(client);
+  } catch (error) {
+    console.error("Client creation error" + error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+app.post(`${backendPath}/clients`, async (req, res) => {
+  try {
+    const newClient = req.body;
+    const client = await Client.create(newClient);
+
+    if (!client) {
+      return res.status(404).json({ message: "Клієнта не створено" });
+    }
+
+    return res.status(201).json(client);
+  } catch (error) {
+    console.error("Client creation error" + error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+app.put(`${backendPath}/clients/:id`, async (req, res) => {
+  try {
+    const updatedClient = req.body;
+    const clientId = req.params.id;
+
+    const client = await Client.findByIdAndUpdate(clientId, updatedClient, {
+      new: true,
+    });
+
+    if (!client) {
+      return res.status(404).json({ message: "Клієнта не знайдено" });
+    }
+
+    return res.status(200).json(client);
+  } catch (error) {
+    console.error("Client creation error" + error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+app.delete(`${backendPath}/clients/:id`, async (req, res) => {
+  try {
+    const clientId = req.params.id;
+    const client = await Client.findByIdAndDelete(clientId);
+    if (!client) {
+      return res.status(404).json({ message: "Клієнта не знайдено" });
+    }
+    return res.status(200).json(client);
+  } catch (error) {
+    console.error("Client creation error" + error);
     return res.status(500).json({ error: error.message });
   }
 });
