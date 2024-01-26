@@ -11,6 +11,18 @@ const serviceSchema = new mongoose.Schema({
     require: [true, "Page is required"],
     unique: true,
   },
+  prices: [
+    {
+      amount: {
+        type: Number,
+        require: [true, "Amount is required"],
+      },
+      comment: String,
+      models: [],
+      clients: [],
+      dropshippers: [],
+    },
+  ],
 });
 
 const Service = mongoose.model("Service", serviceSchema);
