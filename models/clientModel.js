@@ -13,6 +13,20 @@ const clientSchema = new mongoose.Schema({
     type: String,
     require: [true, "City is required"],
   },
+  phone: {
+    type: String,
+    require: [true, "Phone is required"],
+  },
+  login: {
+    type: String,
+    trim: true,
+    unique: true,
+    sparse: true,
+  },
+  password: {
+    type: String,
+    select: false,
+  },
 });
 
 const Client = mongoose.model("Client", clientSchema);
