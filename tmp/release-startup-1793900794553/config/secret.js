@@ -1,0 +1,1 @@
+module.exports={ADMIN_PASSWORD:'synthetic-test-only',AUTH_TOKEN_SECRET:'synthetic-signing-key-test-only',ADMIN_TOKEN:'synthetic-api-token-test-only',WORKERS:[]};
